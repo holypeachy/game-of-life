@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "nd+HqD/CF6TCKqBEu6AaiswH0BeEfqNGO153icIYhUNLoiGDLjOL2eu3eUtpht2gYJ0bbZ/or3YeeFEpb1YKXA==",
+  "success": true,
+  "projectFilePath": "E:\\Code\\VS Code Projects\\Game of Life\\Game of Life.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\frank\\.nuget\\packages\\raylib-cs\\4.5.0.2\\raylib-cs.4.5.0.2.nupkg.sha512",
+    "C:\\Users\\frank\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\frank\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.10\\microsoft.netcore.app.runtime.win-x64.6.0.10.nupkg.sha512",
+    "C:\\Users\\frank\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.10\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.10.nupkg.sha512",
+    "C:\\Users\\frank\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.10\\microsoft.aspnetcore.app.runtime.win-x64.6.0.10.nupkg.sha512",
+    "C:\\Users\\frank\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\6.0.10\\microsoft.netcore.app.crossgen2.win-x64.6.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
