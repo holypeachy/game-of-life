@@ -1,11 +1,8 @@
 ﻿using System;
 using Raylib_cs;
-using System.Threading.Tasks;
-
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-static class Program
+class Program
 {
     const int GridSize = 30;
     const int CellSize = 12;
@@ -74,6 +71,7 @@ static class Program
         
     }
 
+    // Draw Stuff
     static void DrawGrid(){
         foreach (Cell cell in GameGrid)
         {
@@ -119,12 +117,15 @@ static class Program
         }
     }
 
+
+    // Input Check
     static void CheckButtonClick(){
         if(Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT) && !IsPressing){
             IsPressing = true;
             // Console.WriteLine("Click");
         }
-        else if(Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && IsPressing){
+        else if(Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT) && IsPressing)
+        {
             IsPressing = false;
             if( ( (Raylib.GetMousePosition().X > PlayButtonPosition.X) && (Raylib.GetMousePosition().X < PlayButtonPosition.X + ButtonSize.X) ) && ((Raylib.GetMousePosition().Y > PlayButtonPosition.Y) && (Raylib.GetMousePosition().Y < PlayButtonPosition.Y + ButtonSize.Y)) ){
                 // Console.WriteLine("Play Clicked");
@@ -153,7 +154,6 @@ static class Program
             }
             else if (((Raylib.GetMousePosition().X > NextGenButtonPosition.X) && (Raylib.GetMousePosition().X < NextGenButtonPosition.X + ButtonSize.X)) && ((Raylib.GetMousePosition().Y > NextGenButtonPosition.Y) && (Raylib.GetMousePosition().Y < NextGenButtonPosition.Y + ButtonSize.Y)))
             {
-                // Console.WriteLine("Click");
                 Tick();
             }
             else if (IsEditing){
@@ -173,43 +173,8 @@ static class Program
         }
     }
 
-    static void FillGrid(int gridSize, Vector2 gridStartingPos, int cellSize){
-        GameGrid = new Cell[gridSize, gridSize];
-        NextGenGrid = new Cell[gridSize, gridSize];
 
-        float startingX = gridStartingPos.X;
-        float startingY = gridStartingPos.Y;
-
-        float currentX = startingX;
-        float currentY = startingY;
-
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-            {
-                GameGrid[j, i] = new Cell(new Vector2(currentX, currentY), cellSize);
-                currentX += cellSize + 1;
-            }
-            currentX = gridStartingPos.X;
-            currentY += cellSize + 1;
-        }
-
-        currentX = startingX;
-        currentY = startingY;
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-            {
-                NextGenGrid[j, i] = new Cell(new Vector2(currentX, currentY), cellSize);
-                currentX += cellSize + 1;
-            }
-            currentX = gridStartingPos.X;
-            currentY += cellSize + 1;
-        }
-
-        Generation = 0;
-    }
-
+    // Tick
     static void Tick(Object source, System.Timers.ElapsedEventArgs e){
         if(!IsEditing){
             CopyGridToNext();
@@ -272,7 +237,6 @@ static class Program
         }
     }
 
-    // Edit Checker to make it loop around isntead of stopping at the borders
     static int Checker(int x, int y){
         int aliveCount = 0;
         if (x == 0)
@@ -346,7 +310,6 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
             else
             {
@@ -382,7 +345,6 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
         }
         else if (x == GridSize - 1){
@@ -420,7 +382,6 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
             else if (y == GridSize - 1)
             {
@@ -456,7 +417,6 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
             else
             {
@@ -492,7 +452,6 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
         }
         else if (x > 0 && x < GridSize){
@@ -603,6 +562,35 @@ static class Program
         return aliveCount;
     }
 
+
+    // Other Methods
+    static void FillGrid(int gridSize, Vector2 gridStartingPos, int cellSize)
+    {
+        GameGrid = new Cell[gridSize, gridSize];
+        NextGenGrid = new Cell[gridSize, gridSize];
+
+        float startingX = gridStartingPos.X;
+        float startingY = gridStartingPos.Y;
+
+        float currentX = startingX;
+        float currentY = startingY;
+
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+                GameGrid[j, i] = new Cell(new Vector2(currentX, currentY), cellSize);
+                currentX += cellSize + 1;
+            }
+            currentX = gridStartingPos.X;
+            currentY += cellSize + 1;
+        }
+
+        CopyGridToNext();
+
+        Generation = 0;
+    }
+   
     static void CopyGridToNext(){
         for (int y = 0; y < GridSize; y++)
         {
@@ -624,6 +612,8 @@ static class Program
         }
     }
 
+
+    // Saving
     public static void SaveData(GridSavedData Data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
