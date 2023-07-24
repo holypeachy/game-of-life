@@ -212,6 +212,7 @@ static class Program
 
     static void Tick(Object source, System.Timers.ElapsedEventArgs e){
         if(!IsEditing){
+            CopyGridToNext();
             for (int y = 0; y < GridSize; y++)
             {
                 for (int x = 0; x < GridSize; x++)
@@ -241,6 +242,7 @@ static class Program
     {
         if (IsEditing)
         {
+            CopyGridToNext();
             for (int y = 0; y < GridSize; y++)
             {
                 for (int x = 0; x < GridSize; x++)
