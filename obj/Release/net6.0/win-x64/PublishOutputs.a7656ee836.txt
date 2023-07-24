@@ -1,3 +1,0 @@
-E:\Code\VS Code Projects\Game of Life\bin\Release\net6.0\win-x64\publish\Game of Life.pdb
-E:\Code\VS Code Projects\Game of Life\bin\Release\net6.0\win-x64\publish\raylib.dll
-E:\Code\VS Code Projects\Game of Life\bin\Release\net6.0\win-x64\publish\Game of Life.exe
