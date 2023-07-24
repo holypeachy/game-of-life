@@ -277,6 +277,18 @@ static class Program
         {
             if (y == 0)
             {
+                if (GameGrid[GridSize - 1, GridSize - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, GridSize - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x + 1, GridSize - 1].State)
+                {
+                    aliveCount++;
+                }
                 if (GameGrid[x + 1, y].State)
                 {
                     aliveCount++;
@@ -289,19 +301,46 @@ static class Program
                 {
                     aliveCount++;
                 }
-                // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
+                if (GameGrid[GridSize - 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[GridSize - 1, y].State)
+                {
+                    aliveCount++;
+                }
             }
             else if (y == GridSize - 1)
             {
+                if (GameGrid[GridSize - 1, y - 1].State)
+                {
+                    aliveCount++;
+                }
                 if (GameGrid[x, y - 1].State)
                 {
                     aliveCount++;
                 }
-                if (GameGrid[x + 1, y - 1].State)
+                if (GameGrid[x + 1 , y - 1].State)
                 {
                     aliveCount++;
                 }
                 if (GameGrid[x + 1, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x + 1, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[GridSize - 1, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[ GridSize - 1, y].State)
                 {
                     aliveCount++;
                 }
@@ -309,15 +348,7 @@ static class Program
             }
             else
             {
-                if (GameGrid[x, y + 1].State)
-                {
-                    aliveCount++;
-                }
-                if (GameGrid[x + 1, y + 1].State)
-                {
-                    aliveCount++;
-                }
-                if (GameGrid[x + 1, y].State)
+                if (GameGrid[GridSize - 1, y - 1].State)
                 {
                     aliveCount++;
                 }
@@ -326,6 +357,26 @@ static class Program
                     aliveCount++;
                 }
                 if (GameGrid[x + 1, y - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x + 1, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x + 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[GridSize - 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[GridSize - 1, y].State)
                 {
                     aliveCount++;
                 }
@@ -335,11 +386,23 @@ static class Program
         else if (x == GridSize - 1){
             if (y == 0)
             {
-                if (GameGrid[x - 1, y].State)
+                if (GameGrid[x - 1, GridSize - 1].State)
                 {
                     aliveCount++;
                 }
-                if (GameGrid[x - 1, y + 1].State)
+                if (GameGrid[x, GridSize - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, GridSize - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y + 1].State)
                 {
                     aliveCount++;
                 }
@@ -347,15 +410,43 @@ static class Program
                 {
                     aliveCount++;
                 }
+                if (GameGrid[x - 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x - 1, y].State)
+                {
+                    aliveCount++;
+                }
                 // Console.WriteLine($"{x}, {y} aliveCount {aliveCount}");
             }
             else if (y == GridSize - 1)
             {
+                if (GameGrid[x - 1, y - 1].State)
+                {
+                    aliveCount++;
+                }
                 if (GameGrid[x, y - 1].State)
                 {
                     aliveCount++;
                 }
-                if (GameGrid[x - 1, y - 1].State)
+                if (GameGrid[0, y - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x - 1, 0].State)
                 {
                     aliveCount++;
                 }
@@ -367,6 +458,26 @@ static class Program
             }
             else
             {
+                if (GameGrid[x - 1, y - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, y - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y - 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[0, y + 1].State)
+                {
+                    aliveCount++;
+                }
                 if (GameGrid[x, y + 1].State)
                 {
                     aliveCount++;
@@ -376,14 +487,6 @@ static class Program
                     aliveCount++;
                 }
                 if (GameGrid[x - 1, y].State)
-                {
-                    aliveCount++;
-                }
-                if (GameGrid[x, y - 1].State)
-                {
-                    aliveCount++;
-                }
-                if (GameGrid[x - 1, y - 1].State)
                 {
                     aliveCount++;
                 }
@@ -392,19 +495,15 @@ static class Program
         }
         else if (x > 0 && x < GridSize){
             if( y == 0){
-                if (GameGrid[x - 1, y].State)
+                if (GameGrid[x - 1, GridSize - 1].State)
                 {
                     aliveCount++;
                 }
-                if (GameGrid[x - 1, y + 1].State)
+                if (GameGrid[x, GridSize - 1].State)
                 {
                     aliveCount++;
                 }
-                if (GameGrid[x, y + 1].State)
-                {
-                    aliveCount++;
-                }
-                if (GameGrid[x + 1, y + 1].State)
+                if (GameGrid[x + 1, GridSize - 1].State)
                 {
                     aliveCount++;
                 }
@@ -412,12 +511,24 @@ static class Program
                 {
                     aliveCount++;
                 }
-            }
-            else if(y == GridSize - 1){
+                if (GameGrid[x + 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, y + 1].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x - 1, y + 1].State)
+                {
+                    aliveCount++;
+                }
                 if (GameGrid[x - 1, y].State)
                 {
                     aliveCount++;
                 }
+            }
+            else if(y == GridSize - 1){
                 if (GameGrid[x - 1, y - 1].State)
                 {
                     aliveCount++;
@@ -431,6 +542,22 @@ static class Program
                     aliveCount++;
                 }
                 if (GameGrid[x + 1, y].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x + 1, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x - 1, 0].State)
+                {
+                    aliveCount++;
+                }
+                if (GameGrid[x - 1, y].State)
                 {
                     aliveCount++;
                 }
@@ -498,7 +625,7 @@ static class Program
     public static void SaveData(GridSavedData Data)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = "/conway.life";
+        string path = "conway.life";
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
@@ -509,7 +636,7 @@ static class Program
 
     public static void LoadData()
     {
-        string path = "/conway.life";
+        string path = "conway.life";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
