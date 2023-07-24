@@ -21,6 +21,7 @@ class Program
     static Vector2 SaveButtonPosition = new(PlayButtonPosition.X - ButtonSize.X - 5, PlayButtonPosition.Y);
     static Vector2 LoadPosition = new(SaveButtonPosition.X, SaveButtonPosition.Y + ButtonSize.Y + 5);
     static Vector2 NextGenButtonPosition = new(PlayButtonPosition.X + ButtonSize.X + 5, PlayButtonPosition.Y);
+    static Vector2 RandomButton = new(PlayButtonPosition.X + ButtonSize.X + 5, PlayButtonPosition.Y + ButtonSize.Y + 5);
 
     static Color ButtonPlayColor = Color.RED;
     static Color ButtonEditColor = Color.GREEN;
@@ -36,10 +37,12 @@ class Program
     public static void Main()
     {
         Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+
         Raylib.InitWindow(500, 600, "Conway's Game of Life");
+        Raylib.SetWindowIcon(Raylib.LoadImage("icon.png"));
 
         Raylib.SetTargetFPS(144);
-        FillGrid(GridSize, GridStartingPos, CellSize);
+        FillGrid(GridStartingPos, CellSize);
 
         System.Timers.Timer timer = new System.Timers.Timer(TickTime);
         timer.Elapsed += Tick;
@@ -59,6 +62,7 @@ class Program
             DrawClearButton();
             DrawSaveLoadButton();
             DrawNextGenButton();
+            DrawRandomButton();
 
             CheckButtonClick();
 
@@ -117,6 +121,14 @@ class Program
         }
     }
 
+    static void DrawRandomButton(){
+        if (IsEditing)
+        {
+            Raylib.DrawRectangle((int)(RandomButton.X), (int)(RandomButton.Y), (int)ButtonSize.X, (int)ButtonSize.Y, Color.YELLOW);
+            Raylib.DrawText("Random", (int)(RandomButton.X + 15), (int)RandomButton.Y + 10, 20, Color.BLACK);
+        }
+    }
+
 
     // Input Check
     static void CheckButtonClick(){
@@ -134,7 +146,7 @@ class Program
             else if(((Raylib.GetMousePosition().X > ClearButtonPosition.X) && (Raylib.GetMousePosition().X < ClearButtonPosition.X + ButtonSize.X)) && ((Raylib.GetMousePosition().Y > ClearButtonPosition.Y) && (Raylib.GetMousePosition().Y < ClearButtonPosition.Y + ButtonSize.Y))){
                 if(IsEditing){
                     // Console.WriteLine("Clear Clicked");
-                    FillGrid(GridSize, GridStartingPos, CellSize);
+                    FillGrid(GridStartingPos, CellSize);
                 }
             }
             else if (((Raylib.GetMousePosition().X > SaveButtonPosition.X) && (Raylib.GetMousePosition().X < SaveButtonPosition.X + ButtonSize.X)) && ((Raylib.GetMousePosition().Y > SaveButtonPosition.Y) && (Raylib.GetMousePosition().Y < SaveButtonPosition.Y + ButtonSize.Y)))
@@ -155,6 +167,10 @@ class Program
             else if (((Raylib.GetMousePosition().X > NextGenButtonPosition.X) && (Raylib.GetMousePosition().X < NextGenButtonPosition.X + ButtonSize.X)) && ((Raylib.GetMousePosition().Y > NextGenButtonPosition.Y) && (Raylib.GetMousePosition().Y < NextGenButtonPosition.Y + ButtonSize.Y)))
             {
                 Tick();
+            }
+            else if (((Raylib.GetMousePosition().X > RandomButton.X) && (Raylib.GetMousePosition().X < RandomButton.X + ButtonSize.X)) && ((Raylib.GetMousePosition().Y > RandomButton.Y) && (Raylib.GetMousePosition().Y < RandomButton.Y + ButtonSize.Y)))
+            {
+                Random();
             }
             else if (IsEditing){
                 CheckGridClick();
@@ -564,10 +580,10 @@ class Program
 
 
     // Other Methods
-    static void FillGrid(int gridSize, Vector2 gridStartingPos, int cellSize)
+    static void FillGrid(Vector2 gridStartingPos, int cellSize)
     {
-        GameGrid = new Cell[gridSize, gridSize];
-        NextGenGrid = new Cell[gridSize, gridSize];
+        GameGrid = new Cell[GridSize, GridSize];
+        NextGenGrid = new Cell[GridSize, GridSize];
 
         float startingX = gridStartingPos.X;
         float startingY = gridStartingPos.Y;
@@ -575,18 +591,17 @@ class Program
         float currentX = startingX;
         float currentY = startingY;
 
-        for (int i = 0; i < gridSize; i++)
+        for (int i = 0; i < GridSize; i++)
         {
-            for (int j = 0; j < gridSize; j++)
+            for (int j = 0; j < GridSize; j++)
             {
                 GameGrid[j, i] = new Cell(new Vector2(currentX, currentY), cellSize);
+                NextGenGrid[j, i] = new Cell(new Vector2(currentX, currentY), cellSize);
                 currentX += cellSize + 1;
             }
             currentX = gridStartingPos.X;
             currentY += cellSize + 1;
         }
-
-        CopyGridToNext();
 
         Generation = 0;
     }
@@ -612,6 +627,15 @@ class Program
         }
     }
 
+    static void Random(){
+        System.Random rand = new();
+        foreach (Cell cell in GameGrid)
+        {
+            cell.State = (rand.Next(0, 11) < 2 ? true : false);
+        }
+        CopyGridToNext();
+        Generation = 0;
+    }
 
     // Saving
     public static void SaveData(GridSavedData Data)
