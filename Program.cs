@@ -48,7 +48,7 @@ class Program
         timer.Elapsed += Tick;
         timer.Start();
         
-        Console.Clear();
+        // Console.Clear();
 
         while (!Raylib.WindowShouldClose())
         {
